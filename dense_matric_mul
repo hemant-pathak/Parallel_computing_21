@@ -1,0 +1,71 @@
+//cs20m007  dense matrix multiplication [mn]*[np]=[mp]
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int
+main ()
+{
+  int tc, m, n, p;
+  srand (time (0));
+  //cin>>tc;   //# of test cases 
+  tc = (rand () % (5 - 1 + 1)) + 1;
+  cout << "tc:" << tc << endl;
+
+  while (tc--)
+    {
+      //cin>>m>>n>>p;  
+      //m,n,p in range [1,10]
+      m = (rand () % (10 - 1 + 1)) + 1;
+      n = (rand () % (10 - 1 + 1)) + 1;
+      p = (rand () % (10 - 1 + 1)) + 1;
+      int A[m][n];
+      int B[n][p];
+      int res[m][p];
+      int num;
+
+      //matrix A[] input entry
+      for (int i = 0; i < m; i++)
+	{
+	  for (int j = 0; j < n; j++)
+	    {
+	        //syntax used (rand()%(upper_limit-lower_lower+1))+lower_linit, range[0,10]
+	      num = (rand () % (10 - 0 + 1)) + 0;
+	      A[i][j] = num;
+	    }
+	}
+      //matrix B[] input entry
+      for (int i = 0; i < n; i++)
+	{
+	  for (int j = 0; j < p; j++)
+	    {
+	      num = (rand () % (10 - 1 + 1)) + 1;
+	      B[i][j] = num;
+	    }
+	}
+      //A*B operation
+      for (int i = 0; i < m; i++)
+	{
+	  for (int j = 0; j < p; j++)
+	    {
+	      res[i][j] = 0;
+	      for (int k = 0; k < n; k++)
+		res[i][j] += A[i][k] * B[k][j];
+	    }
+	}
+      cout << "m:" << m << " " << "n:" << n << " " << "p:" << p;
+      //printing rusltant matrix res[]
+      cout << endl;
+      for (int i = 0; i < m; i++)
+	{
+	  for (int j = 0; j < p; j++)
+	    {
+	      cout << res[i][j] << " ";
+	    }
+	  cout << endl;
+	}
+      cout << endl;
+    }
+  return 0;
+}
+
