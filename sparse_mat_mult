@@ -1,0 +1,99 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> check(vector< pair<pair<int, int>,int > > res,int i,int j){
+    vector<int> v;
+    for(int k=0;k<res.size();k++){
+        if(res[k].first.first==i && res[k].first.second==j){
+            v.push_back(res[k].second);
+            v.push_back(k);
+            return v;
+        }
+    }
+    v.push_back(0);
+    v.push_back(0);
+    return v;
+}
+
+int main()
+{   
+      srand(time(0));
+    int m,n,p;
+    //generating m,n,p randomely
+    m=(rand()%(10-1+1))+1;
+    n=(rand()%(10-1+1))+1;
+    p=(rand()%(10-1+1))+1;
+    
+    cout<<"m:"<<m<<"n:"<<n<<"p:"<<p<<endl;
+    
+    //considering sp=50% non zero elements
+    int s=.5*m*n;
+    int t=.5*n*p;
+    //int s,t;
+    //cin>>s>>t;
+    cout<<"non zero elements(A):"<<s<<" "<<"non zero elements(B):"<<t<<endl;
+    
+    int a,b,c,d,num,num1;
+	vector< pair<pair<int, int>,int > > myvec1;
+	vector< pair<pair<int, int>,int > > myvec2;
+	vector< pair<pair<int, int>,int > > result;
+
+	for(int k=0;k<s;k++){
+	    //cin>>a>>b>>num;
+	    a=(rand()%(10-0+1))+0;
+        b=(rand()%(10-0+1))+0;
+        num=(rand()%(10-1+1))+1;
+        //cout<<a<<" "<<b<<" "<<num<<endl<<endl;
+	    myvec1.push_back(make_pair(make_pair(a, b),num));
+	}
+	for(int k=0;k<t;k++){
+	   // cin>>c>>d>>num1;
+	    c=(rand()%(10-0+1))+0;
+        d=(rand()%(10-0+1))+0;
+        num1=(rand()%(10-1+1))+1;
+        //cout<<c<<" "<<d<<" "<<num1<<endl<<endl;
+	    myvec2.push_back(make_pair(make_pair(c, d),num1));
+	}
+    cout<<"sparse matrix A (i,j):value"<<endl;
+	for (int i=0; i<s; i++)
+	{
+		cout <<"("<< myvec1[i].first.first << ", " << myvec1[i].first.second<<")"
+			<< ": " << myvec1[i].second << endl;
+	}
+	cout<<endl;
+	cout<<"sparse matrix B (i,j):value"<<endl;
+	for (int i=0; i<t; i++)
+	{
+		cout <<"("<< myvec2[i].first.first << ", " << myvec2[i].first.second<<")"
+			<< ": " << myvec2[i].second << endl;
+	}
+	cout<<endl;
+	
+	int num3,count=0;
+	//vector<pair<string,int> vect;
+	for(int i=0;i<s;i++){
+	    for(int j=0;j<t;j++){
+	        if(myvec1[i].first.second==myvec2[j].first.first){
+	            vector<int> z=check(result,i,j);
+	            if(z[0]==0){
+	            num3=myvec1[i].second * myvec2[j].second+z[0];
+	            result.push_back(make_pair(make_pair(myvec1[i].first.first,myvec2[j].first.second),num3));
+	            count++;
+	            }
+	            else{
+	                num3=myvec1[i].second * myvec2[j].second;
+	                result[z[1]].second+=num3;
+	            }
+	        }
+	    }
+	}
+	
+	cout<<"sparse result matrix A*B (i,j):value"<<endl;
+	for (int i=0; i<count; i++)
+	{
+		cout <<"("<< result[i].first.first << ", " << result[i].first.second<<")"
+			<< ": " << result[i].second << endl;
+	}
+	return 0;
+}
+
